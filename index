@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Саламат 50 жас - Шақыру</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#B8934B',
+                        goldDark: '#8C6D2E',
+                        bgCream: '#FDFBF7',
+                    },
+                    fontFamily: {
+                        cursive: ['Caveat', 'cursive'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FDFBF7;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Анимацияланған фон әсерлері */
+        .bg-effect {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #fdfbf7 100%);
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            background: #B8934B;
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(1px);
+            animation: move-sparkle 15s linear infinite;
+        }
+
+        @keyframes move-sparkle {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        .ornament-floating {
+            position: absolute;
+            width: 150px;
+            opacity: 0.05;
+            animation: rotate-ornament 20s linear infinite;
+        }
+
+        @keyframes rotate-ornament {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Таймердің жылжымалы анимациясы (Slide) */
+        .timer-slot {
+            background: linear-gradient(145deg, #B8934B, #8C6D2E);
+            border-radius: 8px;
+            width: 55px;
+            height: 65px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(184, 147, 75, 0.3);
+        }
+
+        .slot-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slot-number {
+            height: 65px;
+            min-height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 65px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bgCream">
+    <!-- Фон әсерлері -->
+    <div class="bg-effect" id="bgEffect">
+        <img src="data:image/svg+xml;utf8,<svg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><path d='M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z' fill='%23B8934B'/></svg>" class="ornament-floating top-10 left-[-50px]">
+        <img src="data:image/svg+xml;utf8,<svg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><path d='M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z' fill='%23B8934B'/></svg>" class="ornament-floating bottom-20 right-[-50px]">
+    </div>
+
+    <div class="max-w-md mx-auto min-h-screen relative pb-20">
+        
+        <button id="musicToggle" class="fixed top-5 right-5 z-50 w-12 h-12 bg-white/80 border border-gold rounded-full text-gold shadow-lg flex items-center justify-center">
+            <i class="fas fa-music"></i>
+        </button>
+        <audio id="bgAudio" loop>
+            <source src="https://github.com/bilet293/Salamat/raw/refs/heads/main/Music.mp3" type="audio/mpeg">
+        </audio>
+
+        <!-- 1. Басты бет (Суретсіз нұсқа) -->
+        <section class="pt-20 px-6 text-center min-h-[70vh] flex flex-col justify-center fade-in">
+            <div class="mb-6 opacity-30">
+                <i class="fas fa-dove text-gold text-4xl"></i>
+            </div>
+            <h1 class="text-6xl text-gold mb-4 font-cursive">Тойға шақыру</h1>
+            
+            <div class="my-10">
+                <h2 class="text-6xl font-serif font-bold text-gray-800 uppercase tracking-widest">Саламат</h2>
+                <div class="flex items-center justify-center gap-4 mt-6">
+                    <div class="h-px w-12 bg-gold"></div>
+                    <span class="text-5xl text-gold font-cursive">50 жас</span>
+                    <div class="h-px w-12 bg-gold"></div>
+                </div>
+            </div>
+
+            <p class="font-sans text-sm tracking-[0.3em] text-gray-500 uppercase mt-4">Мерейтой салтанаты</p>
+        </section>
+
+        <!-- 2. Шақыру мәтіні -->
+        <section class="py-20 px-8 text-center fade-in">
+            <h2 class="text-5xl text-gold mb-10 font-cursive">Құрметті қонақтар!</h2>
+            <p class="text-xl leading-relaxed text-gray-700">
+                Сіздерді әкеміз <br>
+                <span class="text-4xl font-bold text-gray-800 block my-6 font-serif">Саламаттың</span>
+                50 жас мерейтойына арналған салтанатты ақ дастарханымыздың қадірлі қонағы болуға шақырамыз!
+            </p>
+        </section>
+
+        <!-- 3. Уақыты мен Күнтізбе -->
+        <section class="py-16 px-6 text-center fade-in bg-white/30">
+            <h2 class="text-4xl text-gold mb-10 font-cursive">10 мамыр 2026 жыл</h2>
+            <div class="bg-white p-6 rounded-2xl shadow-xl border border-gold/10 inline-block mb-10 font-serif">
+                <div class="grid grid-cols-7 gap-3 text-sm font-bold text-gold mb-4 uppercase">
+                    <div>Дс</div><div>Сс</div><div>Сә</div><div>Бс</div><div>Жм</div><div>Сн</div><div>Жк</div>
+                </div>
+                <div class="grid grid-cols-7 gap-y-4 text-xl text-gray-800">
+                    <div></div><div></div><div></div><div></div><div>1</div><div>2</div><div>3</div>
+                    <div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+                    <div class="bg-gold text-white rounded-full w-10 h-10 flex items-center justify-center mx-auto shadow-md">10</div>
+                    <div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div>
+                    <div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div>
+                    <div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div>
+                </div>
+            </div>
+            <p class="text-gold text-2xl font-cursive">Басталуы: <span class="text-4xl font-serif text-gray-800 font-bold ml-2">19:00</span></p>
+        </section>
+
+        <!-- 4. Таймер -->
+        <section class="py-16 px-4 text-center fade-in">
+            <h2 class="text-4xl text-gold mb-10 font-cursive">Тойға дейін:</h2>
+            <div class="flex justify-center gap-3">
+                <div class="text-center">
+                    <div class="timer-slot" id="d-slot"><div class="slot-column"><div class="slot-number">00</div></div></div>
+                    <div class="text-[10px] mt-2 font-bold uppercase text-gray-500 tracking-tighter">Күн</div>
+                </div>
+                <div class="text-center">
+                    <div class="timer-slot" id="h-slot"><div class="slot-column"><div class="slot-number">00</div></div></div>
+                    <div class="text-[10px] mt-2 font-bold uppercase text-gray-500 tracking-tighter">Сағат</div>
+                </div>
+                <div class="text-center">
+                    <div class="timer-slot" id="m-slot"><div class="slot-column"><div class="slot-number">00</div></div></div>
+                    <div class="text-[10px] mt-2 font-bold uppercase text-gray-500 tracking-tighter">Минут</div>
+                </div>
+                <div class="text-center">
+                    <div class="timer-slot" id="s-slot"><div class="slot-column"><div class="slot-number">00</div></div></div>
+                    <div class="text-[10px] mt-2 font-bold uppercase text-gray-500 tracking-tighter">Секунд</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Мекен-жай -->
+        <section class="py-20 px-6 text-center fade-in">
+            <div class="border-t border-b border-gold/20 py-10">
+                <h2 class="text-4xl text-gold mb-6 font-cursive">Мекен-жайымыз:</h2>
+                <h3 class="text-3xl font-bold text-gray-800 mb-2 font-serif">"QARAQAT HALL"</h3>
+                <p class="text-lg text-gray-600 mb-8">Ақтау қаласы, Тойота центрдің қасында</p>
+                <a href="https://2gis.kz/" target="_blank" class="inline-flex items-center gap-3 bg-white border-2 border-gold text-gold px-8 py-3 rounded-full font-bold shadow-lg transition-transform active:scale-95">
+                    <i class="fas fa-map-marker-alt"></i> КАРТАНЫ АШУ
+                </a>
+            </div>
+        </section>
+
+        <!-- 6. Сауалнама -->
+        <section class="py-16 px-6 fade-in">
+            <div class="bg-white rounded-3xl p-8 shadow-2xl border border-gold/10">
+                <h2 class="text-4xl text-gold text-center mb-8 font-cursive">Жауап беру</h2>
+                <form id="rsvpForm" class="space-y-6">
+                    <input type="text" id="name" required placeholder="Аты-жөніңіз" class="w-full border-b-2 border-gold/30 p-3 focus:outline-none focus:border-gold text-lg">
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="status" value="Келемін" class="accent-gold w-5 h-5" checked> <span>Әрине, келемін</span></label>
+                        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="status" value="Жұбыммен" class="accent-gold w-5 h-5"> <span>Жұбыммен келемін</span></label>
+                        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="status" value="Жоқ" class="accent-gold w-5 h-5"> <span>Келе алмаймын</span></label>
+                    </div>
+                    <button type="submit" class="w-full bg-gold text-white py-4 rounded-xl font-bold tracking-widest uppercase text-sm shadow-lg active:scale-95 transition-transform">ЖІБЕРУ</button>
+                </form>
+                <div id="success" class="hidden text-center py-4 text-gold font-bold">Жауабыңыз қабылданды!</div>
+            </div>
+        </section>
+
+        <!-- 7. Қорытынды -->
+        <section class="py-20 text-center fade-in">
+            <h2 class="text-5xl text-gold font-cursive leading-tight">Тойымыздың қадірлі қонағы болыңыздар!</h2>
+            <div class="flex justify-center items-center gap-4 mt-12 opacity-30">
+                <div class="h-px w-10 bg-gold"></div>
+                <i class="fas fa-crown text-gold"></i>
+                <div class="h-px w-10 bg-gold"></div>
+            </div>
+            <p class="mt-8 font-bold text-gray-400 text-xs tracking-widest uppercase">Той иелері: Балалары</p>
+        </section>
+    </div>
+
+    <script>
+        // Музыка
+        const audio = document.getElementById('bgAudio');
+        const btn = document.getElementById('musicToggle');
+        let playing = false;
+        btn.onclick = () => {
+            if(!playing) audio.play().catch(() => {}); else audio.pause();
+            playing = !playing;
+            btn.innerHTML = playing ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-music"></i>';
+        };
+
+        // Фондық ұшқындар
+        const bg = document.getElementById('bgEffect');
+        for(let i=0; i<15; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.width = sparkle.style.height = Math.random() * 5 + 3 + 'px';
+            sparkle.style.animationDelay = Math.random() * 15 + 's';
+            bg.appendChild(sparkle);
+        }
+
+        // Таймерді жаңарту
+        const target = new Date("May 10, 2026 19:00:00").getTime();
+        
+        function updateTimer() {
+            const now = new Date().getTime();
+            const diff = target - now;
+            if(diff < 0) return;
+            
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const updateSlotValue = (id, val) => {
+                const el = document.getElementById(id).querySelector('.slot-number');
+                const newVal = val < 10 ? "0"+val : val;
+                if(el.innerText !== String(newVal)) {
+                    el.innerText = newVal;
+                    // Анимациялық эффект үшін
+                    el.style.transform = 'translateY(-10px)';
+                    el.style.opacity = '0.5';
+                    setTimeout(() => {
+                        el.style.transform = 'translateY(0)';
+                        el.style.opacity = '1';
+                    }, 100);
+                }
+            };
+
+            updateSlotValue('d-slot', d);
+            updateSlotValue('h-slot', h);
+            updateSlotValue('m-slot', m);
+            updateSlotValue('s-slot', s);
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
+        });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Форма жіберу
+        document.getElementById('rsvpForm').onsubmit = (e) => {
+            e.preventDefault();
+            document.getElementById('rsvpForm').classList.add('hidden');
+            document.getElementById('success').classList.remove('hidden');
+        };
+    </script>
+</body>
+</html>
